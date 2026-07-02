@@ -259,7 +259,7 @@ Footer: `5/5 scenarios passed` with green progress bar
 - **Graph:** React Flow or D3 force-directed (prefer horizontal DAG)  
 - **Hosting:** Firebase Hosting  
 - **No auth required for capstone demo** — read-only public rules  
-- **RTL support (optional phase 2):** layout should not break with `dir="rtl"` for Persian labels  
+- **RTL support (optional phase 2):** layout should not break with `dir="rtl"` for localized labels  
 
 ---
 

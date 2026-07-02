@@ -1,36 +1,34 @@
-# TraceFork — اتصال Firebase و GitHub
+# TraceFork — Firebase & GitHub Setup
 
-<div dir="rtl">
+## Prerequisites
 
-## پیش‌نیاز
-
-- پروژه Firebase: **`tracefork-3f5ac`** (Spark plan)
-- Firebase CLI نصب: `firebase --version`
-- Git + حساب GitHub
+- Firebase project: **`tracefork-3f5ac`** (Spark plan)
+- Firebase CLI installed: `firebase --version`
+- Git + GitHub account
 
 ---
 
-## بخش ۱ — Firebase
+## Part 1 — Firebase
 
-### گام ۱: فعال‌سازی Firestore
+### Step 1: Enable Firestore
 
 1. [Firebase Console](https://console.firebase.google.com/project/tracefork-3f5ac) → **Build** → **Firestore Database**
 2. **Create database**
-3. حالت: **Production mode** (rules را از repo deploy می‌کنیم)
-4. Region: **`europe-west1`** یا نزدیک‌ترین منطقه (مثلاً `me-central1` اگر در دسترس بود)
+3. Mode: **Production mode** (rules are deployed from this repo)
+4. Region: **`europe-west1`** or the nearest available region (e.g. `me-central1` if available)
 
-### گام ۲: Service Account (برای Python seed / backend)
+### Step 2: Service Account (for Python seed / backend)
 
 1. [Project Settings](https://console.firebase.google.com/project/tracefork-3f5ac/settings/serviceaccounts/adminsdk) → **Service accounts**
-2. **Generate new private key** → JSON دانلود
-3. فایل را ذخیره کن: `tracefork/service-account.json`
-4. **هرگز** این فایل را commit نکن (در `.gitignore` است)
+2. **Generate new private key** → download JSON
+3. Save the file as: `tracefork/service-account.json`
+4. **Never** commit this file (it is listed in `.gitignore`)
 
-### گام ۳: Web App (برای UI فاز ۳)
+### Step 3: Web App (for Phase 3 UI)
 
 1. Project Overview → **Add app** → **Web** (`</>`)
 2. App nickname: `TraceFork Dashboard`
-3. Firebase SDK config را کپی کن (برای `.env` فرانت‌اند):
+3. Copy the Firebase SDK config (for frontend `.env`):
 
 ```
 VITE_FIREBASE_API_KEY=...
@@ -41,14 +39,14 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 ```
 
-### گام ۴: تنظیم `.env` محلی (Python)
+### Step 4: Local `.env` (Python)
 
 ```bash
 cd tracefork
 copy .env.example .env
 ```
 
-محتوای `.env`:
+`.env` contents:
 
 ```env
 GEMINI_API_KEY=your_gemini_key_from_aistudio
@@ -57,11 +55,11 @@ USE_FIRESTORE_EMULATOR=false
 GOOGLE_CLOUD_PROJECT=tracefork-3f5ac
 GOOGLE_APPLICATION_CREDENTIALS=./service-account.json
 
-# خط emulator را comment کن یا حذف کن:
+# Comment out or remove the emulator line:
 # FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
 ```
 
-### گام ۵: Login و انتخاب پروژه
+### Step 5: Login and select project
 
 ```bash
 cd tracefork
@@ -69,13 +67,13 @@ firebase login
 firebase use tracefork-3f5ac
 ```
 
-### گام ۶: Deploy Firestore Rules
+### Step 6: Deploy Firestore Rules
 
 ```bash
 firebase deploy --only firestore:rules,firestore:indexes
 ```
 
-### گام ۷: Seed دیتابیس تست
+### Step 7: Seed test database
 
 ```bash
 .venv\Scripts\activate
@@ -83,70 +81,68 @@ pip install -r requirements.txt
 python scripts/seed_firestore.py
 ```
 
-### گام ۸: تأیید
+### Step 8: Verify
 
 ```bash
 python scripts/run_scenario.py --all --source firestore
 ```
 
-در Console → Firestore → collections: `nodes`, `products`, `batches`, `shipments`, `demo_scenarios`
+In Console → Firestore → collections: `nodes`, `products`, `batches`, `shipments`, `demo_scenarios`
 
 ---
 
-## بخش ۲ — GitHub
+## Part 2 — GitHub
 
-### گام ۱: ساخت Repository
+### Step 1: Create Repository
 
 1. [github.com/new](https://github.com/new)
-2. Name: `tracefork` (یا `TraceFork-Kaggle-Capstone`)
-3. **Public** (الزami capstone)
-4. بدون README اولیه (repo محلی داریم)
+2. Name: `tracefork` (or `TraceFork-Kaggle-Capstone`)
+3. **Public** (required for capstone)
+4. No initial README (we already have a local repo)
 
-### گام ۲: Init و Push
+### Step 2: Init and Push
 
 ```bash
 cd C:\YallaYum\Kaggle\tracefork
 git init
 git add .
 git status
-# مطمئن شو .env و service-account.json در status نیستند
+# Make sure .env and service-account.json are not listed
 git commit -m "Phase 1: TraceFork foundation — Firestore schema, seed data, domain logic"
 git branch -M main
 git remote add origin https://github.com/YOUR_USERNAME/tracefork.git
 git push -u origin main
 ```
 
-### گام ۳: فایل‌های حساس — هرگز push نشوند
+### Step 3: Sensitive files — never push
 
-| فایل | دلیل |
-|------|------|
+| File | Reason |
+|------|--------|
 | `.env` | API keys |
-| `service-account.json` | دسترسی admin |
-| `.venv/` | محیط مجازی |
+| `service-account.json` | Admin access |
+| `.venv/` | Virtual environment |
 
-### گام ۴ (اختیاری): GitHub Secret برای CI
+### Step 4 (optional): GitHub Secret for CI
 
-Settings → Secrets → `GOOGLE_APPLICATION_CREDENTIALS_JSON` (محتوای JSON)
+Settings → Secrets → `GOOGLE_APPLICATION_CREDENTIALS_JSON` (JSON contents)
 
 ---
 
-## بخش ۳ — لینک Firebase ↔ GitHub (اختیاری)
+## Part 3 — Link Firebase ↔ GitHub (optional)
 
-برای deploy خودکار Hosting (فاز ۳):
+For automated Hosting deploy (Phase 3):
 
 1. Firebase Console → **Build** → **Hosting** → Get started
 2. GitHub → repo → Actions → Firebase deploy workflow
-3. یا دستی: `firebase deploy --only hosting`
+3. Or manually: `firebase deploy --only hosting`
 
 ---
 
 ## Troubleshooting
 
-| خطا | راه‌حل |
-|-----|--------|
-| `Permission denied` on seed | Service account JSON درست + Firestore enabled |
+| Error | Fix |
+|-------|-----|
+| `Permission denied` on seed | Valid service account JSON + Firestore enabled |
 | `Project not found` | `firebase use tracefork-3f5ac` |
-| Emulator Java error | `USE_FIRESTORE_EMULATOR=false` برای production |
-| Rules block write | seed با Admin SDK OK است؛ client فقط read |
-
-</div>
+| Emulator Java error | `USE_FIRESTORE_EMULATOR=false` for production |
+| Rules block write | seed with Admin SDK is OK; client is read-only |

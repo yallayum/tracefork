@@ -1,12 +1,8 @@
 # TraceFork
 
-<div dir="rtl">
-
-**رهگیری batch غذایی + شبیه‌سازی recall** — Kaggle Capstone (Firebase + Gemini Agents)
+**Food batch traceability + recall simulation** — Kaggle Capstone (Firebase + Gemini Agents)
 
 **Live Demo:** https://tracefork-3f5ac.web.app
-
-</div>
 
 ## Quick Start
 
@@ -128,8 +124,4 @@ Then run `python scripts/seed_firestore.py`.
 
 ---
 
-<div dir="rtl">
-
-> TraceFork assistant است — جایگزین ERP، بازرس رسمی یا authority notification نیست.
-
-</div>
+> TraceFork is an assistant — not a replacement for ERP, official inspectors, or authority notifications.

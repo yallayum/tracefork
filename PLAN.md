@@ -1,12 +1,10 @@
-# TraceFork — پلن ۳ فازی (Firebase Hybrid)
+# TraceFork — 3-Phase Plan (Firebase Hybrid)
 
-<div dir="rtl">
-
-پروژه Capstone Kaggle — رهگیری batch غذایی، recall simulation، cold chain و compliance روی **Firestore**.
+Kaggle Capstone project — food batch traceability, recall simulation, cold chain, and compliance on **Firestore**.
 
 ---
 
-## معماری کلی
+## Architecture Overview
 
 ```
 ADK Agents + MCP (Python, Local)
@@ -15,26 +13,26 @@ ADK Agents + MCP (Python, Local)
 Firestore (Emulator / Production)
         │
         ▼
-UI Dashboard (فاز ۳ — Streamlit یا Hosting)
+UI Dashboard (Phase 3 — Streamlit or Hosting)
 ```
 
 ---
 
-## فاز ۱ — Foundation & Data Layer ✅ (در حال اجرا)
+## Phase 1 — Foundation & Data Layer ✅
 
-**هدف:** دیتا و منطق هسته بدون agent — قابل تست و demo
+**Goal:** Core data and domain logic without agents — testable and demo-ready
 
-| Deliverable | توضیح |
-|-------------|--------|
+| Deliverable | Description |
+|-------------|-------------|
 | Firebase config | `firebase.json`, rules, indexes, emulator |
 | Firestore schema | nodes, products, batches, events, shipments, recalls, scenarios |
-| Seed data | ۳ batch (happy / cold chain / incomplete) |
+| Seed data | 3 batches (happy / cold chain / incomplete) |
 | `seed_firestore.py` | idempotent seed + hash chain |
 | Python domain layer | trace, compliance, cold chain, recall, integrity |
-| Scenario runner | ۵ سناریو YAML + `run_scenario.py` |
-| Unit tests | pytest بدون emulator (domain) + integration (emulator) |
+| Scenario runner | 5 YAML scenarios + `run_scenario.py` |
+| Unit tests | pytest without emulator (domain) + integration (emulator) |
 
-**خروجی فاز ۱:**
+**Phase 1 output:**
 ```bash
 firebase emulators:start --only firestore
 python scripts/seed_firestore.py
@@ -44,45 +42,43 @@ pytest
 
 ---
 
-## فاز ۲ — Agents & MCP
+## Phase 2 — Agents & MCP
 
-**هدف:** Google ADK multi-agent + MCP tools روی Firestore
+**Goal:** Google ADK multi-agent + MCP tools on Firestore
 
-| Deliverable | توضیح |
-|-------------|--------|
-| MCP Server | ۱۲ tool متصل به repository |
-| ۵ ADK Agent | Orchestrator, Intake, Trace, ColdChain, Recall, Report |
-| Human-in-the-loop | gate برای recall CRITICAL |
+| Deliverable | Description |
+|-------------|-------------|
+| MCP Server | 12 tools connected to repository |
+| 5 ADK Agents | Orchestrator, Intake, Trace, ColdChain, Recall, Report |
+| Human-in-the-loop | gate for CRITICAL recall |
 | Security | grounded answers, refusal, prompt guards |
 | CLI | `tracefork trace LOT-xxx` |
 
-**خروجی فاز ۲:** agent end-to-end با Gemini API
+**Phase 2 output:** agent end-to-end with Gemini API
 
 ---
 
-## فاز ۳ — UI, Eval & Submission
+## Phase 3 — UI, Eval & Submission
 
-**هدف:** demo آماده judges + Kaggle submit
+**Goal:** judge-ready demo + Kaggle submit
 
-| Deliverable | توضیح |
-|-------------|--------|
+| Deliverable | Description |
+|-------------|-------------|
 | Streamlit dashboard | trace map, recall sim, scenario runner, export |
-| Eval suite | ۶/۶ scenarios automated |
+| Eval suite | 6/6 scenarios automated |
 | Docs | README, ARCHITECTURE, DEMO.md |
 | Assets | diagrams, cover image |
 | Optional | Firebase Hosting / HF Spaces |
-| Video script | ۵ دقیقه YouTube |
+| Video script | 5-minute YouTube |
 
-**خروجی فاز ۳:** GitHub public + Kaggle writeup
+**Phase 3 output:** public GitHub + Kaggle writeup
 
 ---
 
-## Timeline (تا ۶ July 2026)
+## Timeline (through July 6, 2026)
 
-| روز | فاز |
-|-----|-----|
-| ۱–۲ | فاز ۱ |
-| ۳–۴ | فاز ۲ |
-| ۵–۶ | فاز ۳ + submit |
-
-</div>
+| Days | Phase |
+|------|-------|
+| 1–2 | Phase 1 |
+| 3–4 | Phase 2 |
+| 5–6 | Phase 3 + submit |
