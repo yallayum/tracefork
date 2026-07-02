@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TraceFork - Recall Simulator</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#2c3136",
+                    "on-surface": "#dee3ea",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "surface-bright": "#353a3f",
+                    "tertiary-fixed": "#dae3f7",
+                    "secondary-container": "#00a6e0",
+                    "inverse-primary": "#006b5f",
+                    "on-secondary": "#00354a",
+                    "surface-variant": "#30353b",
+                    "tertiary-container": "#b5bed2",
+                    "on-secondary-container": "#00374d",
+                    "primary-container": "#2dd4bf",
+                    "error": "#ffb4ab",
+                    "on-tertiary-container": "#444d5e",
+                    "surface-container-highest": "#30353b",
+                    "surface-dim": "#0f1419",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "secondary-fixed": "#c4e7ff",
+                    "surface-container": "#1b2025",
+                    "text-primary": "#F1F5F9",
+                    "on-error-container": "#ffdad6",
+                    "primary": "#57f1db",
+                    "primary-fixed-dim": "#3cddc7",
+                    "inverse-surface": "#dee3ea",
+                    "tertiary-fixed-dim": "#bec7db",
+                    "secondary": "#7bd0ff",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#283140",
+                    "on-surface-variant": "#bacac5",
+                    "background": "#0f1419",
+                    "tertiary": "#d1daee",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#00201c",
+                    "on-tertiary-fixed": "#131c2a",
+                    "on-tertiary-fixed-variant": "#3e4758",
+                    "text-muted": "#94A3B8",
+                    "outline-variant": "#3c4a46",
+                    "danger": "#F87171",
+                    "on-primary-fixed-variant": "#005047",
+                    "surface-container-low": "#171c21",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-background": "#dee3ea",
+                    "on-primary": "#003731",
+                    "warning": "#FBBF24",
+                    "outline": "#859490",
+                    "on-primary-container": "#00574d",
+                    "surface": "#0f1419",
+                    "surface-container-lowest": "#0a0f14",
+                    "surface-container-high": "#252a30",
+                    "surface-tint": "#3cddc7",
+                    "border-subtle": "#334155",
+                    "success": "#34D399",
+                    "primary-fixed": "#62fae3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "20px",
+                    "container-max": "1440px",
+                    "tight": "8px",
+                    "xl": "48px",
+                    "lg": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "hash-code": ["JetBrains Mono"],
+                    "data-mono": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "hash-code": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                    "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Utilities */
+        .glass-panel {
+            background-color: rgba(27, 32, 37, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #334155;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .pulse-danger {
+            animation: pulse-danger 2s infinite;
+        }
+        
+        @keyframes pulse-danger {
+            0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(248, 113, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0); }
+        }
+
+        .graph-line {
+            position: absolute;
+            background: #334155;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-surface-dim text-text-primary min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Shared Component) -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container border-r border-outline-variant hidden md:flex flex-col py-lg px-md z-40">
+<div class="mb-xl flex items-center gap-3 px-2">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-[20px]">fork_right</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight leading-none">TraceFork</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-1">Supply Intelligence</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<!-- Command Center -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-body-sm text-body-sm">Command Center</span>
+</a>
+</li>
+<!-- Trace Explorer -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">art_track</span>
+<span class="font-body-sm text-body-sm">Trace Explorer</span>
+</a>
+</li>
+<!-- Recall Simulator (ACTIVE) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-high text-primary font-bold border-r-2 border-primary scale-95 duration-100 relative overflow-hidden" href="#">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent"></div>
+<span class="material-symbols-outlined text-[20px] relative z-10" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+<span class="font-body-sm text-body-sm relative z-10">Recall Simulator</span>
+</a>
+</li>
+<!-- Cold Chain Monitor -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">ac_unit</span>
+<span class="font-body-sm text-body-sm">Cold Chain Monitor</span>
+</a>
+</li>
+<!-- Compliance & Integrity -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">shield_lock</span>
+<span class="font-body-sm text-body-sm">Compliance &amp; Integrity</span>
+</a>
+</li>
+<!-- Demo Scenarios -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">science</span>
+<span class="font-body-sm text-body-sm">Demo Scenarios</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto border-t border-border-subtle pt-4">
+<div class="flex items-center gap-3 px-2">
+<img alt="Lead Auditor Profile" class="w-8 h-8 rounded-full border border-border-subtle bg-surface-variant object-cover" data-alt="A small, professional headshot of an enterprise user with neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrxXWPptu2HrdBUUADOGE6MbtcwByi1nRVhzUeRtN6UaW-siA_HPvjCYm4-55eb_P6FjBkMDEPFEzzpIyjZyZETkUTAIoJ73Zs1g0HrHC24zYQsWzom_CH62hBFvX8BLWCCSCpRqehBLLTp7UHKloTV7FXzcaZGHk-ZELcq8ARTu9WMU7V1qeyGDt1eS8GTXnECJ1gCZC_8Zbn5_8eOIFfqk0h8egOho5Sv9oCwhtlNyLzNO01MWvqCw"/>
+<div>
+<p class="font-body-sm text-body-sm font-medium text-text-primary">E. Morrison</p>
+<p class="font-label-caps text-label-caps text-text-muted">Lead Auditor</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="docked full-width top-0 h-16 sticky z-30 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center w-full px-lg">
+<div class="flex items-center gap-md">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider flex items-center gap-2">
+                    Simulator <span class="material-symbols-outlined text-[14px]">chevron_right</span> Step 3
+                </span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-all p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</header>
+<!-- Canvas Area -->
+<main class="flex-1 p-lg xl:p-xl w-full max-w-container-max mx-auto overflow-x-hidden">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-xl">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/20 border border-danger/30 text-danger font-label-caps text-label-caps animate-pulse">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            CRITICAL SEVERITY
+                        </span>
+<span class="font-data-mono text-data-mono text-text-muted bg-surface-container px-2 py-1 rounded border border-border-subtle">LOT-2026-0421</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-text-primary">Impact Preview</h2>
+<p class="font-body-lg text-body-lg text-text-muted mt-2 max-w-2xl">Review affected distribution nodes and authorize stakeholder communications before initiating the physical withdrawal protocol.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 rounded border border-border-subtle text-text-primary hover:bg-surface-container transition-colors font-label-caps text-label-caps uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                        Export Manifest
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg">
+<!-- Left Column: Data & Communications -->
+<div class="xl:col-span-8 flex flex-col gap-lg">
+<!-- Affected Retailers Table -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted">storefront</span>
+                                Affected Retailers
+                            </h3>
+<span class="font-label-caps text-label-caps bg-surface-variant px-2 py-1 rounded text-text-muted">3 IDENTIFIED</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest/50 border-b border-border-subtle">
+<th class="px-6 py-3 font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Node / Entity</th>
+<th class="px-6 py-3 font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Inventory (Units)</th>
+<th class="px-6 py-3 font-label-caps text-label-caps text-text-muted uppercase tracking-wider text-center">Action Required</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y divide-border-subtle">
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+</div>
+<div>
+<p class="font-medium text-text-primary">Carrefour Marina</p>
+<p class="font-data-mono text-[11px] text-text-muted mt-0.5">NODE-DXB-091</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-data-mono">1,420</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded bg-danger/10 text-danger border border-danger/20 font-label-caps text-[10px] tracking-widest uppercase">
+                                                Withdraw
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+</div>
+<div>
+<p class="font-medium text-text-primary">Lulu JBR</p>
+<p class="font-data-mono text-[11px] text-text-muted mt-0.5">NODE-DXB-044</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-data-mono">850</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded bg-danger/10 text-danger border border-danger/20 font-label-caps text-[10px] tracking-widest uppercase">
+                                                Withdraw
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-text-muted">location_on</span>
+</div>
+<div>
+<p class="font-medium text-text-primary">Satwa Market</p>
+<p class="font-data-mono text-[11px] text-text-muted mt-0.5">NODE-DXB-112</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-data-mono">315</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded bg-danger/10 text-danger border border-danger/20 font-label-caps text-[10px] tracking-widest uppercase">
+                                                Withdraw
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Stakeholder Communications -->
+<div class="glass-panel rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted">mail</span>
+                                Stakeholder Notices
+                            </h3>
+</div>
+<div class="p-6">
+<div class="border border-border-subtle rounded-lg bg-surface-dim overflow-hidden">
+<!-- Email Header -->
+<button class="w-full px-4 py-3 flex items-center justify-between bg-surface-container-lowest hover:bg-surface-container transition-colors group cursor-pointer text-left">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">drafts</span>
+<div>
+<p class="font-body-sm text-body-sm font-medium">To: Logistics Partners (Tier 1)</p>
+<p class="font-label-caps text-[10px] text-text-muted mt-0.5 uppercase">Subject: URGENT - Stop Movement Order: LOT-2026-0421</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted transform rotate-180 transition-transform">expand_more</span>
+</button>
+<!-- Email Body (Expanded) -->
+<div class="p-4 border-t border-border-subtle">
+<div class="font-body-sm text-body-sm text-on-surface-variant space-y-4">
+<p>Attention Logistics Managers,</p>
+<p>Effective immediately, a mandatory Stop Movement Order has been issued for all pallets associated with <span class="text-text-primary font-data-mono bg-surface-variant px-1 rounded">LOT-2026-0421</span>. Do not load, transit, or deliver any units under this lot number.</p>
+<p>All affected units must be isolated, marked as "DO NOT USE - RECALL," and secured until a reverse logistics manifest is provided.</p>
+<div class="bg-surface-container-high p-3 rounded border-l-2 border-danger text-text-primary font-data-mono text-[12px]">
+                                            &gt; SYS_GEN_SIG: TraceFork Automated Compliance<br/>
+                                            &gt; TIME: 2026-10-24T14:32:01Z<br/>
+                                            &gt; AUTH_LEVEL: Critical
+                                        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Graph & Action Gate -->
+<div class="xl:col-span-4 flex flex-col gap-lg">
+<!-- Contamination Map/Graph -->
+<div class="glass-panel rounded-xl overflow-hidden h-[300px] relative flex flex-col">
+<div class="px-4 py-3 border-b border-border-subtle bg-surface-container-low absolute top-0 w-full z-10 flex justify-between items-center backdrop-blur-md">
+<h3 class="font-headline-md text-[16px] flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">hub</span>
+                                Origin &amp; Spread
+                            </h3>
+</div>
+<!-- Simulated Graph Canvas -->
+<div class="flex-1 bg-surface-container-lowest relative overflow-hidden mt-12">
+<!-- Subtle Grid Background -->
+<div class="absolute inset-0" style="background-image: radial-gradient(#334155 1px, transparent 1px); background-size: 20px 20px; opacity: 0.3;"></div>
+<!-- Graph Lines -->
+<div class="graph-line h-0.5 w-24 top-[40%] left-[25%] transform rotate-12 origin-left"></div>
+<div class="graph-line h-0.5 w-32 top-[40%] left-[25%] transform rotate-[45deg] origin-left"></div>
+<div class="graph-line h-0.5 w-28 top-[40%] left-[25%] transform rotate-[-20deg] origin-left border-t border-dashed border-danger/50 bg-transparent" style="z-index: 1;"></div>
+<!-- Nodes -->
+<!-- Supplier Node -->
+<div class="absolute top-[35%] left-[10%] group cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-border-subtle flex items-center justify-center shadow-lg relative z-10">
+<span class="material-symbols-outlined text-[14px] text-text-muted">agriculture</span>
+</div>
+</div>
+<!-- Contamination Origin (Dubai Plant) -->
+<div class="absolute top-[38%] left-[25%] group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-danger text-white border-2 border-surface flex items-center justify-center shadow-lg relative z-10 pulse-danger">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">factory</span>
+</div>
+<div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-surface px-2 py-0.5 rounded border border-border-subtle shadow-lg">
+<span class="font-data-mono text-[10px] text-danger">DUBAI PLANT</span>
+</div>
+</div>
+<!-- Retailer Nodes -->
+<div class="absolute top-[25%] right-[15%]">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-danger/50 flex items-center justify-center relative z-10">
+<span class="material-symbols-outlined text-[12px] text-danger">storefront</span>
+</div>
+</div>
+<div class="absolute top-[60%] right-[25%]">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-danger/50 flex items-center justify-center relative z-10">
+<span class="material-symbols-outlined text-[12px] text-danger">storefront</span>
+</div>
+</div>
+<div class="absolute top-[50%] right-[10%]">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-danger/50 flex items-center justify-center relative z-10">
+<span class="material-symbols-outlined text-[12px] text-danger">storefront</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Gate -->
+<div class="glass-panel rounded-xl p-6 mt-auto border-t-4 border-t-danger">
+<div class="flex items-start gap-3 mb-6">
+<span class="material-symbols-outlined text-danger mt-1">gavel</span>
+<div>
+<h4 class="font-headline-md text-[18px] text-text-primary leading-tight">Execution Authority</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">This action is irreversible and will immediately broadcast alerts to all listed endpoints.</p>
+</div>
+</div>
+<label class="flex items-start gap-3 cursor-pointer group mb-6 p-3 rounded-lg border border-border-subtle bg-surface-container hover:border-primary/50 transition-colors">
+<div class="relative flex items-center mt-0.5">
+<input class="peer h-5 w-5 rounded border-outline-variant bg-surface-dim text-primary focus:ring-primary focus:ring-offset-surface-dim transition-all cursor-pointer" type="checkbox"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-text-primary transition-colors select-none">
+                                I formally approve the recall plan for LOT-2026-0421 and authorize automated stakeholder notifications.
+                            </span>
+</label>
+<button class="w-full bg-danger hover:bg-red-500 text-white font-headline-md text-[16px] py-4 rounded-lg flex justify-center items-center gap-2 transition-colors shadow-lg shadow-danger/20 relative overflow-hidden group">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            ACTIVATE RECALL
+                            <!-- Subtle shine effect on hover -->
+<div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shimmer_1.5s_infinite]"></div>
+</button>
+<style>
+                            @keyframes shimmer {
+                                100% { left: 200%; }
+                            }
+                        </style>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trace Explorer - LOT-2026-0421</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#2c3136",
+                    "on-surface": "#dee3ea",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "surface-bright": "#353a3f",
+                    "tertiary-fixed": "#dae3f7",
+                    "secondary-container": "#00a6e0",
+                    "inverse-primary": "#006b5f",
+                    "on-secondary": "#00354a",
+                    "surface-variant": "#30353b",
+                    "tertiary-container": "#b5bed2",
+                    "on-secondary-container": "#00374d",
+                    "primary-container": "#2dd4bf",
+                    "error": "#ffb4ab",
+                    "on-tertiary-container": "#444d5e",
+                    "surface-container-highest": "#30353b",
+                    "surface-dim": "#0f1419",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "secondary-fixed": "#c4e7ff",
+                    "surface-container": "#1b2025",
+                    "text-primary": "#F1F5F9",
+                    "on-error-container": "#ffdad6",
+                    "primary": "#57f1db",
+                    "primary-fixed-dim": "#3cddc7",
+                    "inverse-surface": "#dee3ea",
+                    "tertiary-fixed-dim": "#bec7db",
+                    "secondary": "#7bd0ff",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#283140",
+                    "on-surface-variant": "#bacac5",
+                    "background": "#0f1419",
+                    "tertiary": "#d1daee",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#00201c",
+                    "on-tertiary-fixed": "#131c2a",
+                    "on-tertiary-fixed-variant": "#3e4758",
+                    "text-muted": "#94A3B8",
+                    "outline-variant": "#3c4a46",
+                    "danger": "#F87171",
+                    "on-primary-fixed-variant": "#005047",
+                    "surface-container-low": "#171c21",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-background": "#dee3ea",
+                    "on-primary": "#003731",
+                    "warning": "#FBBF24",
+                    "outline": "#859490",
+                    "on-primary-container": "#00574d",
+                    "surface": "#0f1419",
+                    "surface-container-lowest": "#0a0f14",
+                    "surface-container-high": "#252a30",
+                    "surface-tint": "#3cddc7",
+                    "border-subtle": "#334155",
+                    "success": "#34D399",
+                    "primary-fixed": "#62fae3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "20px",
+                    "container-max": "1440px",
+                    "tight": "8px",
+                    "xl": "48px",
+                    "lg": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "hash-code": [
+                            "JetBrains Mono"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "hash-code": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "data-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Custom Utilities */
+        .glass-panel {
+            background-color: rgba(26, 35, 50, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .pulse-danger {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.5); }
+            100% { box-shadow: 0 0 0 10px rgba(248, 113, 113, 0); }
+        }
+
+        /* Hide scrollbar for clean horizontal scrolls */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-24 relative overflow-x-hidden">
+<!-- Top Navigation (Mobile Simplified) -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant docked full-width top-0 h-16 sticky z-40 flex justify-between items-center px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">art_track</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">TraceFork</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">search</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">menu</span>
+</div>
+</header>
+<main class="p-4 flex flex-col gap-lg">
+<!-- Header / Batch Context -->
+<section class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Trace Explorer</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">chevron_right</span>
+<span class="font-data-mono text-data-mono text-primary">LOT-2026-0421</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary">Organic Atlantic Salmon</h1>
+</section>
+<!-- Batch Summary Card -->
+<section class="glass-panel rounded-lg p-md flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-label-caps text-label-caps text-text-muted mb-1">Current Status</h2>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-danger text-[18px]">error</span>
+<span class="font-body-md text-body-md text-danger font-medium">Temperature Violation</span>
+</div>
+</div>
+<div class="text-right">
+<h2 class="font-label-caps text-label-caps text-text-muted mb-1">Integrity Score</h2>
+<div class="font-data-mono text-data-mono text-warning">72%</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-border-subtle">
+<div>
+<h3 class="font-label-caps text-label-caps text-text-muted mb-1">Origin</h3>
+<p class="font-body-sm text-body-sm text-text-primary">Norway Farm #42</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-muted mb-1">Destination</h3>
+<p class="font-body-sm text-body-sm text-text-primary">NYC Hub A</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-muted mb-1">Harvest Date</h3>
+<p class="font-data-mono text-data-mono text-text-primary text-[12px]">2023-10-24</p>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-text-muted mb-1">Chain Hash</h3>
+<p class="font-hash-code text-hash-code text-text-muted truncate w-24" title="0x8f4b...3a92">0x8f4b...3a92</p>
+</div>
+</div>
+</section>
+<!-- Vertical Event Timeline -->
+<section>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-4">Event Timeline</h2>
+<div class="relative pl-6 border-l border-border-subtle ml-3 flex flex-col gap-6">
+<!-- Event 1: Origin -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-success ring-4 ring-surface"></div>
+<div class="glass-panel rounded-lg p-tight">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-success">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium text-text-primary">Harvest Logged</span>
+</div>
+<span class="font-data-mono text-data-mono text-[12px] text-text-muted">10-24 08:30</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">Verified by IoT sensors at facility NS-42.</p>
+</div>
+</div>
+<!-- Event 2: Transit -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-surface"></div>
+<div class="glass-panel rounded-lg p-tight">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">local_shipping</span>
+<span class="font-body-sm text-body-sm font-medium text-text-primary">Departed Origin</span>
+</div>
+<span class="font-data-mono text-data-mono text-[12px] text-text-muted">10-24 14:15</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">Carrier: ColdExpress Logistics.</p>
+</div>
+</div>
+<!-- Event 3: Violation -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-danger ring-4 ring-surface pulse-danger"></div>
+<div class="glass-panel rounded-lg p-tight border-danger/50 bg-danger/10">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-danger">thermostat</span>
+<span class="font-body-sm text-body-sm font-medium text-danger">Cold Chain Breach</span>
+</div>
+<span class="font-data-mono text-data-mono text-[12px] text-danger">10-25 03:42</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-primary">Temperature exceeded threshold (4.5°C &gt; 3.0°C) for 45 minutes.</p>
+</div>
+</div>
+<!-- Event 4: Current -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-surface-variant border-2 border-primary ring-4 ring-surface"></div>
+<div class="glass-panel rounded-lg p-tight border-primary/30">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">warehouse</span>
+<span class="font-body-sm text-body-sm font-medium text-text-primary">Arrived at Hub</span>
+</div>
+<span class="font-data-mono text-data-mono text-[12px] text-text-muted">10-26 09:00</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">Quarantined pending inspection due to prior alert.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Supply Chain Graph (Simplified Scrollable) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-4">Supply Node Graph</h2>
+<div class="w-full overflow-x-auto no-scrollbar pb-4">
+<div class="flex items-center gap-4 min-w-max px-2">
+<!-- Node 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center border-success text-success">
+<span class="material-symbols-outlined">set_meal</span>
+</div>
+<span class="font-label-caps text-label-caps text-text-muted">Origin</span>
+</div>
+<!-- Connector -->
+<div class="w-8 h-[2px] bg-border-subtle relative top-[-10px]"></div>
+<!-- Node 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center border-primary text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="font-label-caps text-label-caps text-text-muted">Transit</span>
+</div>
+<!-- Connector (Violation) -->
+<div class="w-8 h-[2px] bg-danger relative top-[-10px]"></div>
+<!-- Node 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center border-danger text-danger bg-danger/10 pulse-danger">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<span class="font-label-caps text-label-caps text-danger">Alert</span>
+</div>
+<!-- Connector -->
+<div class="w-8 h-[2px] bg-border-subtle relative top-[-10px]"></div>
+<!-- Node 4 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center border-primary/50 text-text-primary">
+<span class="material-symbols-outlined">warehouse</span>
+</div>
+<span class="font-label-caps text-label-caps text-text-muted">Hub A</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button (Export) -->
+<div class="fixed bottom-20 right-4 z-50">
+<button class="bg-primary text-surface-dim font-label-caps text-label-caps font-bold px-6 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+            EXPORT REPORT
+        </button>
+</div>
+<!-- BottomNavBar (from JSON) -->
+<nav aria-label="Bottom Navigation" class="bg-surface-container-high dark:bg-surface-container-high border-t border-outline-variant shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg h-14">
+<!-- Re-interpreted for Mobile global nav rather than strictly the JSON action buttons, as requested by prompt "Mobile bottom bar or burger menu" for navigation context, but using JSON tokens -->
+<div class="flex flex-col items-center justify-center gap-1 text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-caps text-[10px]">Command</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 bg-primary-container text-on-primary-container rounded-lg px-4 py-1">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">art_track</span>
+<span class="font-label-caps text-[10px]">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+<span class="font-label-caps text-[10px]">Compliance</span>
+</div>
+</nav>
+</body></html>

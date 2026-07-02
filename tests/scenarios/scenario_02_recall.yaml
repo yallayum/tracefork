@@ -1,0 +1,12 @@
+id: scenario_02
+name: Recall Simulation
+lot_number: LOT-2026-0421
+action: recall
+contamination_node_id: dubai_plant
+reason: listeria risk at pasteurization
+expect:
+  allowed: true
+  severity: CRITICAL
+  requires_human_approval: true
+  min_retail_impacts: 3
+  min_units_affected: 1800

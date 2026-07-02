@@ -1,0 +1,10 @@
+id: scenario_03
+name: Cold Chain Alert
+lot_number: LOT-2026-0315
+action: trace
+expect:
+  found: true
+  cold_chain_status: FAIL
+  cold_chain_risk: HIGH
+  min_violations: 1
+  compliance_min: 70

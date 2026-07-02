@@ -1,0 +1,26 @@
+[
+  {
+    "id": "prod_yogurt_500",
+    "name": "Yogurt Plain 500g",
+    "category": "dairy",
+    "gtin": "0621000123456",
+    "allergens": ["milk"],
+    "shelf_life_days": 21
+  },
+  {
+    "id": "prod_labneh_250",
+    "name": "Labneh 250g",
+    "category": "dairy",
+    "gtin": "0621000654321",
+    "allergens": ["milk"],
+    "shelf_life_days": 30
+  },
+  {
+    "id": "prod_compote_400",
+    "name": "Fruit Compote 400g",
+    "category": "packaged",
+    "gtin": "0869000111222",
+    "allergens": [],
+    "shelf_life_days": 365
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "al_ain_farm",
+    "name": "Al Ain Organic Farm",
+    "type": "farm",
+    "city": "Al Ain",
+    "country": "UAE",
+    "lat": 24.2075,
+    "lng": 55.7447,
+    "certifications": ["Organic", "GAP"]
+  },
+  {
+    "id": "dubai_plant",
+    "name": "Dubai Fresh Processing Plant",
+    "type": "plant",
+    "city": "Dubai",
+    "country": "UAE",
+    "lat": 25.0657,
+    "lng": 55.1713,
+    "certifications": ["ISO22000", "HACCP"]
+  },
+  {
+    "id": "gulf_dc",
+    "name": "Gulf Cold Storage DC",
+    "type": "warehouse",
+    "city": "Dubai",
+    "country": "UAE",
+    "lat": 25.118,
+    "lng": 55.23,
+    "certifications": ["HACCP", "ColdChain"]
+  },
+  {
+    "id": "carrefour_marina",
+    "name": "Carrefour Marina",
+    "type": "retail",
+    "city": "Dubai",
+    "country": "UAE",
+    "lat": 25.0773,
+    "lng": 55.1398,
+    "certifications": ["Retail-Food"]
+  },
+  {
+    "id": "lulu_jbr",
+    "name": "Lulu Hypermarket JBR",
+    "type": "retail",
+    "city": "Dubai",
+    "country": "UAE",
+    "lat": 25.0764,
+    "lng": 55.1328,
+    "certifications": ["Retail-Food"]
+  },
+  {
+    "id": "satwa_market",
+    "name": "Local Market Satwa",
+    "type": "retail",
+    "city": "Dubai",
+    "country": "UAE",
+    "lat": 25.229,
+    "lng": 55.272,
+    "certifications": ["Retail-Food"]
+  },
+  {
+    "id": "jordan_farm",
+    "name": "Jordan Valley Farm",
+    "type": "farm",
+    "city": "Amman",
+    "country": "Jordan",
+    "lat": 31.9454,
+    "lng": 35.9284,
+    "certifications": ["GAP"]
+  },
+  {
+    "id": "amman_plant",
+    "name": "Amman Dairy Plant",
+    "type": "plant",
+    "city": "Amman",
+    "country": "Jordan",
+    "lat": 31.9539,
+    "lng": 35.9106,
+    "certifications": ["HACCP"]
+  },
+  {
+    "id": "riyadh_transit",
+    "name": "Riyadh Transit Hub",
+    "type": "warehouse",
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "lat": 24.7136,
+    "lng": 46.6753,
+    "certifications": ["ColdChain"]
+  },
+  {
+    "id": "spinneys_riyadh",
+    "name": "Spinneys Riyadh",
+    "type": "retail",
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "lat": 24.6877,
+    "lng": 46.7219,
+    "certifications": ["Retail-Food"]
+  },
+  {
+    "id": "turkey_orchard",
+    "name": "Turkey Orchard Co-op",
+    "type": "farm",
+    "city": "Bursa",
+    "country": "Turkey",
+    "lat": 40.1885,
+    "lng": 29.061,
+    "certifications": ["GAP"]
+  },
+  {
+    "id": "istanbul_cannery",
+    "name": "Istanbul Cannery",
+    "type": "plant",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.0082,
+    "lng": 28.9784,
+    "certifications": ["ISO22000", "HACCP"]
+  },
+  {
+    "id": "retail_istanbul_1",
+    "name": "Migros Kadikoy",
+    "type": "retail",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 40.9903,
+    "lng": 29.0258,
+    "certifications": ["Retail-Food"]
+  },
+  {
+    "id": "retail_istanbul_2",
+    "name": "CarrefourSA Moda",
+    "type": "retail",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 40.9847,
+    "lng": 29.0244,
+    "certifications": ["Retail-Food"]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "LOT-2026-0421",
+    "scenarios": [
+      {
+        "id": "scenario_01",
+        "name": "Happy Trace",
+        "description": "Full trace for yogurt batch with high compliance"
+      },
+      {
+        "id": "scenario_02",
+        "name": "Recall Simulation",
+        "description": "Contamination at processing plant affects all retailers"
+      },
+      {
+        "id": "scenario_05",
+        "name": "Tamper Detection",
+        "description": "Verify event hash chain integrity"
+      }
+    ]
+  },
+  {
+    "id": "LOT-2026-0315",
+    "scenarios": [
+      {
+        "id": "scenario_03",
+        "name": "Cold Chain Alert",
+        "description": "Temperature violation during transit to Riyadh"
+      }
+    ]
+  },
+  {
+    "id": "LOT-2026-0199",
+    "scenarios": [
+      {
+        "id": "scenario_04",
+        "name": "Incomplete Trace",
+        "description": "Missing distributor handoff blocks recall simulation"
+      }
+    ]
+  }
+]

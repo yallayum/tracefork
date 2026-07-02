@@ -1,0 +1,12 @@
+id: scenario_01
+name: Happy Trace
+lot_number: LOT-2026-0421
+action: trace
+expect:
+  found: true
+  compliance_min: 90
+  cold_chain_status: PASS
+  integrity_valid: true
+  trace_gap: false
+  min_timeline_events: 6
+  min_graph_nodes: 5

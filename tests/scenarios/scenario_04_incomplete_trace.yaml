@@ -1,0 +1,10 @@
+id: scenario_04
+name: Incomplete Trace
+lot_number: LOT-2026-0199
+action: recall
+contamination_node_id: istanbul_cannery
+reason: foreign material contamination
+expect:
+  allowed: false
+  trace_gap: true
+  compliance_max: 70

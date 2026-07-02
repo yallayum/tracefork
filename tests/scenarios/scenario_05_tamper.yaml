@@ -1,0 +1,7 @@
+id: scenario_05
+name: Tamper Detection
+lot_number: LOT-2026-0421
+action: integrity
+expect:
+  integrity_valid: true
+  events_checked_min: 6

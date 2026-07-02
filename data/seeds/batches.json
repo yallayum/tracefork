@@ -1,0 +1,29 @@
+[
+  {
+    "id": "LOT-2026-0421",
+    "lot_number": "LOT-2026-0421",
+    "product_id": "prod_yogurt_500",
+    "quantity_units": 1800,
+    "production_date": "2026-04-21",
+    "expiry_date": "2026-05-12",
+    "status": "active"
+  },
+  {
+    "id": "LOT-2026-0315",
+    "lot_number": "LOT-2026-0315",
+    "product_id": "prod_labneh_250",
+    "quantity_units": 500,
+    "production_date": "2026-03-15",
+    "expiry_date": "2026-04-14",
+    "status": "active"
+  },
+  {
+    "id": "LOT-2026-0199",
+    "lot_number": "LOT-2026-0199",
+    "product_id": "prod_compote_400",
+    "quantity_units": 900,
+    "production_date": "2026-01-19",
+    "expiry_date": "2027-01-19",
+    "status": "active"
+  }
+]

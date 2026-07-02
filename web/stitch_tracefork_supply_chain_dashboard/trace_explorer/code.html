@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trace Fork - Trace Explorer</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+    </style>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#2c3136",
+                        "on-surface": "#dee3ea",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "surface-bright": "#353a3f",
+                        "tertiary-fixed": "#dae3f7",
+                        "secondary-container": "#00a6e0",
+                        "inverse-primary": "#006b5f",
+                        "on-secondary": "#00354a",
+                        "surface-variant": "#30353b",
+                        "tertiary-container": "#b5bed2",
+                        "on-secondary-container": "#00374d",
+                        "primary-container": "#2dd4bf",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#444d5e",
+                        "surface-container-highest": "#30353b",
+                        "surface-dim": "#0f1419",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-container": "#1b2025",
+                        "text-primary": "#F1F5F9",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#57f1db",
+                        "primary-fixed-dim": "#3cddc7",
+                        "inverse-surface": "#dee3ea",
+                        "tertiary-fixed-dim": "#bec7db",
+                        "secondary": "#7bd0ff",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#283140",
+                        "on-surface-variant": "#bacac5",
+                        "background": "#0f1419",
+                        "tertiary": "#d1daee",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#00201c",
+                        "on-tertiary-fixed": "#131c2a",
+                        "on-tertiary-fixed-variant": "#3e4758",
+                        "text-muted": "#94A3B8",
+                        "outline-variant": "#3c4a46",
+                        "danger": "#F87171",
+                        "on-primary-fixed-variant": "#005047",
+                        "surface-container-low": "#171c21",
+                        "on-secondary-fixed": "#001e2c",
+                        "on-background": "#dee3ea",
+                        "on-primary": "#003731",
+                        "warning": "#FBBF24",
+                        "outline": "#859490",
+                        "on-primary-container": "#00574d",
+                        "surface": "#0f1419",
+                        "surface-container-lowest": "#0a0f14",
+                        "surface-container-high": "#252a30",
+                        "surface-tint": "#3cddc7",
+                        "border-subtle": "#334155",
+                        "success": "#34D399",
+                        "primary-fixed": "#62fae3"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        md: "16px",
+                        gutter: "20px",
+                        "container-max": "1440px",
+                        tight: "8px",
+                        xl: "48px",
+                        lg: "24px",
+                        base: "4px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "hash-code": ["JetBrains Mono", "monospace"],
+                        "data-mono": ["JetBrains Mono", "monospace"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "hash-code": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "400" }],
+                        "data-mono": ["14px", { lineHeight: "20px", fontWeight: "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for timeline */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        
+        /* Subtle glow effect for cards */
+        .glass-card {
+            background: rgba(26, 35, 50, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #334155;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        /* Timeline connector line */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 40px;
+            bottom: -10px;
+            width: 2px;
+            background-color: #334155;
+            z-index: 0;
+        }
+        .timeline-item:last-child .timeline-line::before {
+            display: none;
+        }
+        
+        /* Node connection lines */
+        .svg-connector {
+            stroke: #334155;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 4;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-text-primary min-h-screen flex flex-col font-body-md overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full pl-72 pr-lg h-16 bg-surface/80 backdrop-blur-md border-b border-outline-variant docked full-width top-0 h-16 sticky z-40 hidden md:flex">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">TraceFork</h1>
+</div>
+<!-- Center Search (simulated) -->
+<div class="flex-1 max-w-md mx-xl hidden lg:block relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[18px]">search</span>
+<input class="w-full bg-[#1A2332] border border-border-subtle rounded-md pl-10 pr-4 py-1.5 font-data-mono text-data-mono text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" placeholder="Search lots, IDs, or entities..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-all p-2 rounded-md hover:bg-surface-container-high focus:ring-2 focus:ring-primary focus:ring-inset">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all p-2 rounded-md hover:bg-surface-container-high focus:ring-2 focus:ring-primary focus:ring-inset">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-subtle">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female lead auditor in a modern, well-lit office environment. She has a neutral, focused expression. The lighting is crisp and cool, reflecting an enterprise software aesthetic. The background is slightly blurred with subtle hints of data screens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNDeyuygFgwiZGyzAasdO4MMzac-IKLQcRR6srrKf8XdEUA-ZLg-5wHRdZVkdaIhL9zrZRHwNwQXwP3sD68x54kV0-_dVPn475g0azMOrCf-dPpGEt4UAxt3n8cpJgqxP8L8F4oC-J3uYZb1U1X195XvV4lEbRHwiVsp5D_xi3VIMGnfcvSU-q2qWk0rk1gmWfNSwTGj4OIzS69Vt4Ry9nRICZx1ojmh9rXI6VBlLzLNqYXJawZdCs_Q"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-container border-r border-outline-variant h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-lg px-md z-50 hidden md:flex shadow-none">
+<div class="mb-xl flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-primary-container flex items-center justify-center text-background font-bold">
+<span class="material-symbols-outlined text-[20px]">fork_right</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-primary text-[20px] leading-tight">TraceFork</div>
+<div class="font-label-caps text-label-caps text-text-muted">Supply Intelligence</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Command Center -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors text-[20px]">dashboard</span>
+<span class="font-body-sm text-body-sm">Command Center</span>
+</a>
+<!-- Trace Explorer (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-primary font-bold border-r-2 border-primary bg-surface-container-high scale-95 duration-100 group" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">art_track</span>
+<span class="font-body-sm text-body-sm">Trace Explorer</span>
+</a>
+<!-- Recall Simulator -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors text-[20px]">emergency_home</span>
+<span class="font-body-sm text-body-sm">Recall Simulator</span>
+</a>
+<!-- Cold Chain Monitor -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors text-[20px]">ac_unit</span>
+<span class="font-body-sm text-body-sm">Cold Chain Monitor</span>
+</a>
+<!-- Compliance & Integrity -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors text-[20px]">shield_lock</span>
+<span class="font-body-sm text-body-sm">Compliance &amp; Integrity</span>
+</a>
+<!-- Demo Scenarios -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant font-medium hover:bg-surface-container-high hover:text-on-surface transition-colors group mt-auto" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors text-[20px]">science</span>
+<span class="font-body-sm text-body-sm">Demo Scenarios</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area (Split Pane) -->
+<main class="flex-1 flex flex-col xl:flex-row w-full md:pl-64 overflow-hidden relative">
+<!-- Header for Mobile/Tablet -->
+<div class="xl:hidden p-md border-b border-border-subtle bg-surface/90 backdrop-blur-sm z-30 sticky top-0">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary">Trace Explorer</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-data-mono text-data-mono text-primary-container">LOT-2026-0421</span>
+<span class="text-text-muted font-body-sm text-body-sm">• Yogurt Plain 500g</span>
+</div>
+</div>
+<!-- Left Sidebar: 40% (Timeline & Details) -->
+<section class="w-full xl:w-[40%] bg-surface flex flex-col h-full border-r border-border-subtle overflow-y-auto relative z-20">
+<!-- Header (Desktop only) -->
+<div class="p-lg hidden xl:block border-b border-border-subtle">
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Active Trace</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary mb-1">LOT-2026-0421</h2>
+<div class="font-body-md text-body-md text-on-surface-variant">Yogurt Plain 500g</div>
+</div>
+<div class="p-lg space-y-lg">
+<!-- Batch Summary Card -->
+<div class="glass-card rounded-lg p-md">
+<h3 class="font-label-caps text-label-caps text-text-muted mb-4">Batch Summary</h3>
+<div class="flex items-center justify-between mb-6">
+<!-- Compliance Gauge -->
+<div class="flex items-center gap-4">
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-variant stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path class="text-primary-container stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="98, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-data-mono text-data-mono font-bold text-primary-container text-xs">98%</span>
+</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary-container">EXCELLENT</div>
+<div class="font-body-sm text-body-sm text-text-muted">Compliance Score</div>
+</div>
+</div>
+</div>
+<!-- Status Pills -->
+<div class="grid grid-cols-2 gap-tight">
+<div class="bg-surface-container px-3 py-2 rounded border border-border-subtle flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-text-muted">Cold Chain</span>
+<span class="font-label-caps text-label-caps text-success bg-success/10 px-2 py-0.5 rounded">PASS</span>
+</div>
+<div class="bg-surface-container px-3 py-2 rounded border border-border-subtle flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-text-muted">Integrity</span>
+<div class="flex items-center gap-1 text-primary-container">
+<span class="font-label-caps text-label-caps">VALID</span>
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vertical Timeline -->
+<div>
+<h3 class="font-label-caps text-label-caps text-text-muted mb-4 pl-2">Trace Chronology</h3>
+<div class="space-y-0 relative pb-xl">
+<!-- Farm -->
+<div class="timeline-item relative pl-12 pr-4 py-3 group">
+<div class="timeline-line"></div>
+<div class="absolute left-3 top-4 w-6 h-6 rounded-full bg-surface-container border-2 border-success flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-success"></div>
+</div>
+<div class="glass-card rounded p-3 transition-colors group-hover:bg-[#243044]">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-md text-body-md font-medium text-text-primary">Al Ain Dairy Farm</div>
+<div class="font-data-mono text-data-mono text-text-muted text-xs">08:00 GST</div>
+</div>
+<div class="font-body-sm text-body-sm text-text-muted mb-2">Raw Milk Extraction • Batch #F-8821</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[14px]">thermometer</span>
+<span class="font-data-mono text-data-mono text-xs">4.2°C</span>
+</div>
+<div class="flex items-center gap-1 text-success">
+<span class="material-symbols-outlined text-[14px]">shield_lock</span>
+<span class="font-data-mono text-data-mono text-xs">0x8a92...f3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Plant -->
+<div class="timeline-item relative pl-12 pr-4 py-3 group">
+<div class="timeline-line"></div>
+<div class="absolute left-3 top-4 w-6 h-6 rounded-full bg-surface-container border-2 border-secondary flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<div class="glass-card rounded p-3 transition-colors group-hover:bg-[#243044]">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-md text-body-md font-medium text-text-primary">Dubai Processing Plant</div>
+<div class="font-data-mono text-data-mono text-text-muted text-xs">14:30 GST</div>
+</div>
+<div class="font-body-sm text-body-sm text-text-muted mb-2">Pasteurization &amp; Culturing • Lot #P-990</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[14px]">thermometer</span>
+<span class="font-data-mono text-data-mono text-xs">43°C -&gt; 4°C</span>
+</div>
+<div class="flex items-center gap-1 text-success">
+<span class="material-symbols-outlined text-[14px]">shield_lock</span>
+<span class="font-data-mono text-data-mono text-xs">0x2b41...e7</span>
+</div>
+</div>
+</div>
+</div>
+<!-- DC -->
+<div class="timeline-item relative pl-12 pr-4 py-3 group">
+<div class="timeline-line"></div>
+<div class="absolute left-3 top-4 w-6 h-6 rounded-full bg-surface-container border-2 border-[#A855F7] flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-[#A855F7]"></div>
+</div>
+<div class="glass-card rounded p-3 transition-colors group-hover:bg-[#243044]">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-md text-body-md font-medium text-text-primary">Gulf Distribution Center</div>
+<div class="font-data-mono text-data-mono text-text-muted text-xs">+1 Day 02:15 GST</div>
+</div>
+<div class="font-body-sm text-body-sm text-text-muted mb-2">Cross-docking &amp; Palletizing • Pallet #DC-442</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[14px]">thermometer</span>
+<span class="font-data-mono text-data-mono text-xs">3.8°C</span>
+</div>
+<div class="flex items-center gap-1 text-success">
+<span class="material-symbols-outlined text-[14px]">shield_lock</span>
+<span class="font-data-mono text-data-mono text-xs">0xc73f...91</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Retail -->
+<div class="timeline-item relative pl-12 pr-4 py-3 group">
+<div class="timeline-line"></div>
+<div class="absolute left-3 top-4 w-6 h-6 rounded-full bg-surface-container border-2 border-[#F97316] flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-[#F97316] animate-pulse"></div>
+</div>
+<div class="glass-card rounded p-3 border-l-2 border-l-[#F97316] bg-[#243044]">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-md text-body-md font-medium text-text-primary">Carrefour MOE</div>
+<div class="font-data-mono text-data-mono text-text-muted text-xs">+1 Day 09:45 GST</div>
+</div>
+<div class="font-body-sm text-body-sm text-text-muted mb-2">Received at Retail • Current Location</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[14px]">thermometer</span>
+<span class="font-data-mono text-data-mono text-xs">4.0°C</span>
+</div>
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[14px]">package</span>
+<span class="font-data-mono text-data-mono text-xs">Unit Scan</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Main: 60% (Canvas Graph) -->
+<section class="w-full xl:w-[60%] h-[500px] xl:h-full bg-[#0F1419] relative overflow-hidden flex flex-col justify-center items-center">
+<!-- Canvas Grid Background -->
+<div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#334155 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Horizontal Graph Container -->
+<div class="relative z-10 w-full max-w-4xl px-8 flex items-center justify-between overflow-x-auto min-w-[600px]">
+<!-- SVG Connections Background -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: -1;">
+<!-- Line 1: Farm to Plant -->
+<path class="svg-connector" d="M 80 150 C 150 150, 200 150, 250 150"></path>
+<!-- Line 2: Plant to DC -->
+<path class="svg-connector" d="M 330 150 C 400 150, 450 150, 520 150"></path>
+<!-- Line 3: DC to Retail -->
+<path class="svg-connector" d="M 600 150 C 670 150, 720 150, 790 150"></path>
+</svg>
+<!-- Node: Farm -->
+<div class="flex flex-col items-center gap-3 shrink-0 relative">
+<div class="w-16 h-16 rounded-xl bg-surface-container border border-success flex items-center justify-center shadow-lg relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-success text-[28px]">agriculture</span>
+<div class="absolute -top-2 -right-2 w-5 h-5 bg-success rounded-full flex items-center justify-center shadow">
+<span class="material-symbols-outlined text-background text-[12px]">check</span>
+</div>
+</div>
+<div class="text-center">
+<div class="font-label-caps text-label-caps text-text-primary">FARM</div>
+<div class="font-data-mono text-data-mono text-text-muted text-[10px]">Al Ain</div>
+</div>
+</div>
+<!-- Node: Plant -->
+<div class="flex flex-col items-center gap-3 shrink-0 relative">
+<div class="w-16 h-16 rounded-xl bg-surface-container border border-secondary flex items-center justify-center shadow-lg relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-secondary text-[28px]">factory</span>
+<div class="absolute -top-2 -right-2 w-5 h-5 bg-success rounded-full flex items-center justify-center shadow">
+<span class="material-symbols-outlined text-background text-[12px]">check</span>
+</div>
+</div>
+<div class="text-center">
+<div class="font-label-caps text-label-caps text-text-primary">PLANT</div>
+<div class="font-data-mono text-data-mono text-text-muted text-[10px]">Dubai</div>
+</div>
+</div>
+<!-- Node: DC -->
+<div class="flex flex-col items-center gap-3 shrink-0 relative">
+<div class="w-16 h-16 rounded-xl bg-surface-container border border-[#A855F7] flex items-center justify-center shadow-lg relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-[#A855F7] text-[28px]">warehouse</span>
+<div class="absolute -top-2 -right-2 w-5 h-5 bg-success rounded-full flex items-center justify-center shadow">
+<span class="material-symbols-outlined text-background text-[12px]">check</span>
+</div>
+</div>
+<div class="text-center">
+<div class="font-label-caps text-label-caps text-text-primary">DISTRIBUTION</div>
+<div class="font-data-mono text-data-mono text-text-muted text-[10px]">Gulf DC</div>
+</div>
+</div>
+<!-- Node: Retail -->
+<div class="flex flex-col items-center gap-3 shrink-0 relative">
+<div class="w-16 h-16 rounded-xl bg-surface-container border border-[#F97316] flex items-center justify-center shadow-lg shadow-[#F97316]/20 relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-[#F97316] text-[28px]">storefront</span>
+<!-- Pulsing indicator for current location -->
+<div class="absolute -inset-1 rounded-xl border border-[#F97316] opacity-50 animate-ping"></div>
+</div>
+<div class="text-center">
+<div class="font-label-caps text-label-caps text-text-primary">RETAIL</div>
+<div class="font-data-mono text-data-mono text-text-muted text-[10px]">Carrefour</div>
+</div>
+</div>
+</div>
+<!-- Graph Legend / Tools -->
+<div class="absolute bottom-6 left-6 right-6 flex justify-between items-end z-20 pointer-events-none">
+<div class="glass-card px-4 py-2 rounded-md flex gap-4 pointer-events-auto">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-success"></div>
+<span class="font-body-sm text-body-sm text-text-muted text-xs">Verified</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#F97316]"></div>
+<span class="font-body-sm text-body-sm text-text-muted text-xs">Current</span>
+</div>
+</div>
+<div class="flex gap-2 pointer-events-auto">
+<button class="w-8 h-8 rounded bg-surface-container border border-border-subtle flex items-center justify-center text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container border border-border-subtle flex items-center justify-center text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">zoom_out</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Desktop Overlay / Mobile Bottom Bar) -->
+<div class="bg-surface-container-high dark:bg-surface-container-high border-t border-outline-variant docked full-width bottom-0 h-14 fixed bottom-0 left-0 w-full z-50 flex justify-end items-center px-lg gap-md shadow-lg xl:pl-[calc(16rem+24px)]">
+<!-- Simulate Recall (Secondary Ghost) -->
+<button class="flex items-center gap-2 px-4 py-1.5 rounded-md border border-border-subtle text-text-primary hover:bg-[#243044] transition-colors">
+<span class="material-symbols-outlined text-[18px]">emergency_home</span>
+<span class="font-label-caps text-label-caps">Simulate Recall</span>
+</button>
+<!-- Export Audit Report (Primary Filled) -->
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container rounded-lg px-4 py-1.5 font-label-caps text-label-caps hover:bg-surface-tint transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span>Export Audit Report</span>
+</button>
+</div>
+</body></html>

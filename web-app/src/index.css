@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Theme tokens — switched via html[data-theme] */
+:root,
+html[data-theme="dark"] {
+  --tf-background: #0f1419;
+  --tf-surface: #0f1419;
+  --tf-surface-container: #1b2025;
+  --tf-surface-container-high: #252a30;
+  --tf-surface-dim: #0a0f14;
+  --tf-surface-variant: #30353b;
+  --tf-text-primary: #f1f5f9;
+  --tf-text-muted: #94a3b8;
+  --tf-on-surface: #dee3ea;
+  --tf-on-surface-variant: #bacac5;
+  --tf-border-subtle: #334155;
+  --tf-outline-variant: #3c4a46;
+  --tf-glass-bg: rgba(26, 35, 50, 0.72);
+  --tf-glass-border: rgba(51, 65, 85, 0.55);
+  --tf-chart-grid: #334155;
+  --tf-shadow: rgba(0, 0, 0, 0.25);
+  --tf-graph-bg: #0a0f14;
+  --tf-graph-grid: #334155;
+  --tf-graph-line: #475569;
+}
+
+html[data-theme="light"] {
+  --tf-background: #f1f5f9;
+  --tf-surface: #ffffff;
+  --tf-surface-container: #ffffff;
+  --tf-surface-container-high: #f8fafc;
+  --tf-surface-dim: #f8fafc;
+  --tf-surface-variant: #e2e8f0;
+  --tf-text-primary: #0f172a;
+  --tf-text-muted: #64748b;
+  --tf-on-surface: #1e293b;
+  --tf-on-surface-variant: #475569;
+  --tf-border-subtle: #e2e8f0;
+  --tf-outline-variant: #cbd5e1;
+  --tf-glass-bg: rgba(255, 255, 255, 0.88);
+  --tf-glass-border: rgba(226, 232, 240, 0.95);
+  --tf-chart-grid: #e2e8f0;
+  --tf-shadow: rgba(15, 23, 42, 0.08);
+  --tf-graph-bg: #eef2f7;
+  --tf-graph-grid: #cbd5e1;
+  --tf-graph-line: #94a3b8;
+}
+
+@theme {
+  --color-primary: #57f1db;
+  --color-primary-container: #2dd4bf;
+  --color-danger: #f87171;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-surface: var(--tf-surface);
+  --color-surface-container: var(--tf-surface-container);
+  --color-surface-container-high: var(--tf-surface-container-high);
+  --color-surface-dim: var(--tf-surface-dim);
+  --color-surface-variant: var(--tf-surface-variant);
+  --color-background: var(--tf-background);
+  --color-text-primary: var(--tf-text-primary);
+  --color-text-muted: var(--tf-text-muted);
+  --color-on-surface: var(--tf-on-surface);
+  --color-on-surface-variant: var(--tf-on-surface-variant);
+  --color-border-subtle: var(--tf-border-subtle);
+  --color-outline-variant: var(--tf-outline-variant);
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+body {
+  @apply bg-background text-on-surface font-sans antialiased min-h-screen transition-colors duration-300;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.glass-card {
+  background-color: var(--tf-glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--tf-glass-border);
+  box-shadow: 0 4px 24px var(--tf-shadow);
+}
+
+.glass-panel {
+  background-color: var(--tf-glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--tf-glass-border);
+  box-shadow: 0 8px 32px var(--tf-shadow);
+}
+
+.pulse-danger {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.5); }
+  100% { box-shadow: 0 0 0 10px rgba(248, 113, 113, 0); }
+}
+
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 40px;
+  bottom: -10px;
+  width: 2px;
+  background-color: var(--tf-border-subtle);
+  z-index: 0;
+}
+
+.timeline-item:last-child .timeline-line::before {
+  display: none;
+}
+
+.graph-panel {
+  background-color: var(--tf-graph-bg);
+}
+
+.graph-panel-grid {
+  background-image: radial-gradient(var(--tf-graph-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Recharts focus outline */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
